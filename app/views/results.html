@@ -1,0 +1,35 @@
+<div class="row marketing">
+    <h1>{{results.Circuit.circuitName}} <i class="fa fa-trophy"></i></h1>
+    <table class="table table-striped table-hover table-condensed" ng-model="season">
+        <thead>
+            <tr>
+                <th ng-click="sort='position'; reverse=false"></th>
+                <th ng-click="sort='position'; reverse=false">pts</th>
+                <th>#</th>
+                <th ng-click="sort='Driver.givenName'; reverse=!reverse">Name</th>
+                <th ng-click="sort='Contructor.name'; reverse=!reverse">Constructor</th>
+                <th ng-click="sort='grid'; reverse=false">Grid Pos</th>
+                <th ng-click="sort='FastestLap.Time.time'; reverse=!reverse">Fastest Lap <i class="fa fa-tachometer"></i></th>
+                <th>Classification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="result in results.Results | orderBy:sort:reverse">
+                <td>{{result.positionText}}</td>
+                <td>{{result.points}}</td>
+                <td>{{result.number}}</td>
+                <td>
+                    <img ng-src="{{result.Driver.driverId}}">
+                    <a ng-href="{{result.Driver.url}}">
+                        {{result.Driver.givenName}} {{result.Driver.familyName}} 
+                    </a>
+                </td>
+                <td>{{result.Constructor.name}}</td>
+                <td>{{result.grid}}</td>
+                <td>{{result.FastestLap.Time.time}}</td>
+                <td>{{result.status}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <pre>{{results|json}}</pre>
+</div>
