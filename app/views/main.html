@@ -13,7 +13,7 @@
             <tr ng-repeat="race in season.Races">
                 <td>{{race.round}}</td>
                 <td>
-                    <a ng-if="race.results" ng-href="#results/{{race.Circuit.circuitId}}">
+                    <a ng-if="race.results" ng-href="#/results/{{race.Circuit.circuitId}}/rd/{{race.round}}">
                         {{race.raceName}} <i class="fa fa-trophy"></i>
                     </a>
                     <span ng-if="race.results === false">{{race.raceName}}</span>
@@ -21,12 +21,11 @@
                 <td>{{race.dt | date: short}}</td>
                 <td>
                     <a ng-href="{{race.Circuit.url}}" target="blank">
-                        {{race.Circuit.circuitName}} <i class="fa fa-external-link"></i>
+                        {{race.Circuit.circuitName}} 
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <pre>{{season|json}}</pre>
 </div>
 

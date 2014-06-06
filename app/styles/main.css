@@ -59,6 +59,29 @@ body {
   margin-top: 28px;
 }
 
+.driver-head {
+    text-align: center;
+}
+
+.driver-head a {
+    text-decoration: none;
+}
+
+.driver-head img {
+    height: 50%;
+}
+
+th, 
+td {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+.sortable {
+    color: #428bca;
+    cursor: pointer;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */

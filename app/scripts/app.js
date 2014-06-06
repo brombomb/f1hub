@@ -14,9 +14,17 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/results/:circuitId', {
+      .when('/results/:circuitId/rd/:round', {
         templateUrl: 'views/results.html',
         controller: 'ResultsCtrl'
+      })
+      .when('/drivers', {
+        templateUrl: 'views/drivers.html',
+        controller: 'DriverCtrl'
+      })
+      .when('/constructors', {
+        templateUrl: 'views/constructors.html',
+        controller: 'ConstructorCtrl'
       })
       .otherwise({
         redirectTo: '/'
