@@ -3,16 +3,17 @@
     <table class="table table-striped table-hover table-condensed" ng-model="season">
         <thead>
             <tr>
-                <th>Place</th>
+                <th></th>
                 <th>Points</th>
                 <th><i class="fa fa-flag-checkered"></i> Wins</th>
                 <th>Driver</th>
                 <th>Constructor</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="place in standings">
-                <td>{{place.position}}</td>
+                <td class="color" style="background-color: {{lookup.ids.constructors[place.Constructors[0].constructorId].color1}}">{{place.position}}</td>
                 <td>{{place.points}}</td>
                 <td>{{place.wins}}</td>
                 <td class="driver-head">
@@ -25,6 +26,9 @@
                     </a>
                 </td>
                 <td>{{place.Constructors[0].name}}</td>
+                <td>
+                    <span class="car" ng-class="place.Constructors[0].constructorId"></span>
+                </td>
             </tr>
         </tbody>
     </table>

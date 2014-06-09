@@ -58,6 +58,33 @@ angular.module('f1App')
           });
       })
     
+    .controller('QualiCtrl', function ($scope, $http, $routeParams) {
+
+        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.sort = 'position'
+        var numbers = [
+            'position', 
+            'number'
+        ];
+
+        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+            $scope.lookup = data;
+        });
+
+
+        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/qualifying.json'}).success(function(data) {
+            $scope.race = data.MRData.RaceTable.Races[0];
+            $scope.quali = data.MRData.RaceTable.Races[0].QualifyingResults;
+            angular.forEach($scope.quali, function(result) {
+                for(var i in result) {
+                    if(result.hasOwnProperty(i) && numbers.indexOf(i) !== -1) {
+                        result[i] = parseInt(result[i], 10);
+                    }
+                }
+            });
+          });
+      })
+    
     .controller('DriverCtrl', function ($scope, $http) {
 
         $scope.baseurl = 'http://ergast.com/api/f1/current/';
@@ -68,7 +95,6 @@ angular.module('f1App')
 
         $http({method: 'get', url: $scope.baseurl + 'driverStandings.json'}).success(function(data) {
             $scope.standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
-            console.log(scope.standings);
           });
       })
 

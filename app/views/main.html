@@ -4,8 +4,8 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Date</th>
+                <th>Race <i class="fa fa-flag-o"></i></th>
+                <th>Date <i class="fa fa-calendar"></i></th>
                 <th>Circuit</th>
             </tr>
         </thead>
@@ -13,9 +13,11 @@
             <tr ng-repeat="race in season.Races">
                 <td>{{race.round}}</td>
                 <td>
-                    <a ng-if="race.results" ng-href="#/results/{{race.Circuit.circuitId}}/rd/{{race.round}}">
-                        {{race.raceName}} <i class="fa fa-trophy"></i>
-                    </a>
+                    <div ng-if="race.results">
+                    <a ng-href="#/results/{{race.Circuit.circuitId}}">{{race.raceName}} <i class="fa fa-trophy"></i></a>
+                    |
+                    <a ng-href="#/quali/{{race.Circuit.circuitId}}">Quali <i class="fa fa-clock-o"></i></a>
+                    </div>
                     <span ng-if="race.results === false">{{race.raceName}}</span>
                 </td>
                 <td>{{race.dt | date: short}}</td>

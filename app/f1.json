@@ -25,17 +25,61 @@
             "maldonado": 869 
         },
         "constructors": {
-            "mercedes": 190,
-            "red_bull": 182,
-            "ferrari": 3,
-            "force_india": 188,
-            "mclaren": 5,
-            "williams": 4,
-            "lotus_f1": 6,
-            "toro_rosso": 184,
-            "marussia": 191,
-            "sauber": 7,
-            "caterham": 194
+            "mercedes": {
+                "id": 190,
+                "color1": "#3acfcb",
+                "color2": ""
+            },
+            "red_bull": {
+                "id": 182,
+                "color1": "#290082", 
+                "color2": ""
+            },
+            "ferrari": {
+                "id": 3,
+                "color1": "#ce0002",
+                "color2": ""
+            },
+            "force_india": {
+                "id": 188,
+                "color1": "#ec5d19",
+                "color2": ""
+            },
+            "mclaren": {
+                "id": 5,
+                "color1": "#c5c5c7",
+                "color2": ""
+            },
+            "williams": {
+                "id": 4,
+                "color1": "#ffffff",
+                "color2": ""
+            },
+            "lotus_f1": {
+                "id": 6,
+                "color1": "#fdff00",
+                "color2": ""
+            },
+            "toro_rosso": {
+                "id": 184,
+                "color1": "#1b2057",
+                "color2": ""
+            },
+            "marussia": {
+                "id": 191,
+                "color1": "#a42600",
+                "color2": ""
+            },
+            "sauber": {
+                "id": 7,
+                "color1": "#353336",
+                "color2": ""
+            },
+            "caterham": {
+                "id": 194,
+                "color1": "#006a22",
+                "color2": ""
+            }
         },
         "nationality": {
             "German": "de",

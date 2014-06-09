@@ -14,9 +14,13 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/results/:circuitId/rd/:round', {
+      .when('/results/:circuitId', {
         templateUrl: 'views/results.html',
         controller: 'ResultsCtrl'
+      })
+      .when('/quali/:circuitId', {
+        templateUrl: 'views/quali.html',
+        controller: 'QualiCtrl'
       })
       .when('/drivers', {
         templateUrl: 'views/drivers.html',

@@ -1,0 +1,35 @@
+<div class="row marketing">
+    <h1>{{race.raceName}} Qualifying <i class="fa fa-clock-o"></i>
+    <a class="pull-right" href="#/results/{{race.Circuit.circuitId}}"><i class="pull-right fa fa-trophy"></i></a>
+    </h1>
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+            <tr>
+                <th><i class="fa fa-flag-o"></i></th>
+                <th class="driver-head">Name</th>
+                <th>Constructor</th>
+                <th>Q1</th>
+                <th>Q2</th>
+                <th>Q3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="result in quali">
+                <td class="color" style="background: {{lookup.ids.constructors[result.Constructor.constructorId].color1}}">{{result.position}}</td>
+                <td class="driver-head">
+                    <a ng-href="{{result.Driver.url}}">
+                        <img ng-src="{{result.Driver.driverId | helmet:this}}">
+                        <br>
+                        <span class="flag-icon flag-icon-{{lookup.ids.nationality[result.Driver.nationality]}}"></span>
+                        {{result.Driver.givenName}} {{result.Driver.familyName}} 
+                        # {{result.number}}
+                    </a>
+                </td>
+                <td>{{result.Constructor.name}}</td>
+                <td>{{result.Q1}}</td>
+                <td>{{result.Q2}}</td>
+                <td>{{result.Q3}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
