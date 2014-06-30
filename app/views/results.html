@@ -1,13 +1,14 @@
 <div class="row marketing">
     <h1>{{results.raceName}} <i class="fa fa-trophy"></i></h1>
-    <table class="table table-striped table-hover table-condensed" ng-model="season">
+    <table class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
                 <th ng-click="sort='position'; reverse=false" class="sortable"><i class="fa fa-flag-checkered"></i></th>
-                <th ng-click="sort='position'; reverse=false" class="sortable">pts</th>
                 <th class="driver-head sortable" ng-click="sort='Driver.givenName'; reverse=!reverse">Name</th>
                 <th>Constructor</th>
                 <th ng-click="sort='grid'; reverse=false" class="sortable">Grid Pos</th>
+                <th></th>
+                <th ng-click="sort='position'; reverse=false" class="sortable">pts</th>
                 <th ng-click="sort='FastestLap.Time.time'; reverse=!reverse" class="sortable">Fastest Lap <i class="fa fa-tachometer"></i></th>
                 <th>Classification</th>
             </tr>
@@ -15,7 +16,6 @@
         <tbody>
             <tr ng-repeat="result in results.Results | orderBy:sort:reverse">
                 <td class="color" style="background-color: {{lookup.ids.constructors[result.Constructor.constructorId].color1}}">{{result.positionText}}</td>
-                <td><span ng-show="result.points > 0">{{result.points}}</span></td>
                 <td class="driver-head">
                     <a ng-href="{{result.Driver.url}}">
                         <img ng-src="{{result.Driver.driverId | helmet:this}}">
