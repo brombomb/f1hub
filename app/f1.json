@@ -55,24 +55,24 @@
                 "color1": "#ffffff",
                 "color2": ""
             },
-            "lotus_f1": {
+            "renault": {
                 "id": 6,
-                "color1": "#fdff00",
+                "color1": "#ffd800",
                 "color2": ""
             },
             "toro_rosso": {
                 "id": 184,
-                "color1": "#0000FF",
+                "color1": "#0000ff",
                 "color2": ""
             },
-            "marussia": {
+            "haas": {
                 "id": 191,
-                "color1": "#a42600",
+                "color1": "#6c0000",
                 "color2": ""
             },
             "sauber": {
                 "id": 7,
-                "color1": "#006EFF",
+                "color1": "#006eff",
                 "color2": ""
             },
             "caterham": {
@@ -117,7 +117,6 @@
             "Dutch": "nl",
             "New Zealander": "nz",
             "Monegasque": "mc"
-
         }
     },
     "url": "http://www.formula1.com/photos/teams_and_drivers/",
