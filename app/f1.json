@@ -27,27 +27,27 @@
         "constructors": {
             "mercedes": {
                 "id": 190,
-                "color1": "#3acfcb",
+                "color1": "#00cfba",
                 "color2": ""
             },
             "red_bull": {
                 "id": 182,
-                "color1": "#290082", 
+                "color1": "#00007D", 
                 "color2": ""
             },
             "ferrari": {
                 "id": 3,
-                "color1": "#ce0002",
+                "color1": "#c30000",
                 "color2": ""
             },
             "force_india": {
                 "id": 188,
-                "color1": "#ec5d19",
+                "color1": "#ff80c7",
                 "color2": ""
             },
             "mclaren": {
                 "id": 5,
-                "color1": "#c5c5c7",
+                "color1": "#ff7b08",
                 "color2": ""
             },
             "williams": {
@@ -55,24 +55,24 @@
                 "color1": "#ffffff",
                 "color2": ""
             },
-            "lotus_f1": {
+            "renault": {
                 "id": 6,
-                "color1": "#fdff00",
+                "color1": "#ffd800",
                 "color2": ""
             },
             "toro_rosso": {
                 "id": 184,
-                "color1": "#1b2057",
+                "color1": "#0000ff",
                 "color2": ""
             },
-            "marussia": {
+            "haas": {
                 "id": 191,
-                "color1": "#a42600",
+                "color1": "#6c0000",
                 "color2": ""
             },
             "sauber": {
                 "id": 7,
-                "color1": "#353336",
+                "color1": "#006eff",
                 "color2": ""
             },
             "caterham": {
@@ -99,8 +99,10 @@
             "French": "fr",
             "Swedish": "ch",
             "Japanese": "jp",
-            "Venezuelan": "ve"
-
+            "Venezuelan": "ve",
+            "Dutch": "be",
+            "Belgian": "be",
+            "Canadian": "ca"
         }
     },
     "url": "http://www.formula1.com/photos/teams_and_drivers/",
