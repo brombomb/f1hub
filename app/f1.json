@@ -82,6 +82,7 @@
             }
         },
         "nationality": {
+            "American": "us",
             "German": "de",
             "Austrian": "at",
             "Italian": "it",
