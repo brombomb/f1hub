@@ -99,14 +99,14 @@ angular.module('f1App')
         var url = $scope.baseurl;
 
         if (!$routeParams.season || !$routeParams.round) {
-            url += "current";
+          url += 'current';
         } else {
-            url += $routeParams.season + "/" + $routeParams.round;
+          url += $routeParams.season + '/' + $routeParams.round;
         }
 
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
-        });
+          });
 
         $http({method: 'get', url: url + '/driverStandings.json'}).success(function(data) {
             $scope.standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
