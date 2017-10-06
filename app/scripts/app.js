@@ -34,6 +34,10 @@ angular
         templateUrl: 'views/constructors.html',
         controller: 'ConstructorCtrl'
       })
+      .when('/constructors/:season/:round', {
+        templateUrl: 'views/constructors.html',
+        controller: 'ConstructorCtrl'
+      })
       .when('/info', {
         templateUrl: 'views/info.html'
       })
