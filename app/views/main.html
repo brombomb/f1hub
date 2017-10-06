@@ -7,6 +7,7 @@
                 <th>Race <i class="fa fa-flag-o"></i></th>
                 <th>Date <i class="fa fa-calendar"></i></th>
                 <th>Circuit</th>
+                <th>Standings</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,11 @@
                     <a ng-href="{{race.Circuit.url}}" target="blank">
                         {{race.Circuit.circuitName}} 
                     </a>
+                </td>
+                <td>
+                  <div ng-if="race.results">
+                    <a ng-href="#/drivers/{{race.season}}/{{race.round}}">Drivers <i class="fa fa-car"></i></a>
+                  </div>
                 </td>
             </tr>
         </tbody>

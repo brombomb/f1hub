@@ -26,6 +26,10 @@ angular
         templateUrl: 'views/drivers.html',
         controller: 'DriverCtrl'
       })
+      .when('/drivers/:season/:round', {
+        templateUrl: 'views/drivers.html',
+        controller: 'DriverCtrl'
+      })
       .when('/constructors', {
         templateUrl: 'views/constructors.html',
         controller: 'ConstructorCtrl'
