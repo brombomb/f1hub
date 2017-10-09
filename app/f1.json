@@ -62,7 +62,7 @@
             },
             "toro_rosso": {
                 "id": 184,
-                "color1": "#0000ff",
+                "color1": "#0000FF",
                 "color2": ""
             },
             "haas": {
@@ -72,14 +72,25 @@
             },
             "sauber": {
                 "id": 7,
-                "color1": "#006eff",
+                "color1": "#006EFF",
                 "color2": ""
             },
             "caterham": {
                 "id": 194,
                 "color1": "#006a22",
                 "color2": ""
+            },
+            "haas": {
+              "id": 0,
+              "color1": "#6C0000",
+              "color2": ""
+            },
+            "renault": {
+              "id": 0,
+              "color1": "#FFD800",
+              "color2": ""
             }
+            
         },
         "nationality": {
             "American": "us",
@@ -101,9 +112,10 @@
             "Swedish": "ch",
             "Japanese": "jp",
             "Venezuelan": "ve",
-            "Dutch": "be",
             "Belgian": "be",
-            "Canadian": "ca"
+            "Canadian": "ca",
+            "Dutch": "nl"
+
         }
     },
     "url": "http://www.formula1.com/photos/teams_and_drivers/",
