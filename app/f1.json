@@ -111,7 +111,10 @@
             "French": "fr",
             "Swedish": "ch",
             "Japanese": "jp",
-            "Venezuelan": "ve"
+            "Venezuelan": "ve",
+            "Belgian": "be",
+            "Canadian", "ca",
+            "Dutch", "nl"
 
         }
     },
