@@ -27,27 +27,27 @@
         "constructors": {
             "mercedes": {
                 "id": 190,
-                "color1": "#3acfcb",
+                "color1": "#00cfba",
                 "color2": ""
             },
             "red_bull": {
                 "id": 182,
-                "color1": "#290082", 
+                "color1": "#00007D", 
                 "color2": ""
             },
             "ferrari": {
                 "id": 3,
-                "color1": "#ce0002",
+                "color1": "#c30000",
                 "color2": ""
             },
             "force_india": {
                 "id": 188,
-                "color1": "#ec5d19",
+                "color1": "#ff80c7",
                 "color2": ""
             },
             "mclaren": {
                 "id": 5,
-                "color1": "#c5c5c7",
+                "color1": "#ff7b08",
                 "color2": ""
             },
             "williams": {
@@ -62,7 +62,7 @@
             },
             "toro_rosso": {
                 "id": 184,
-                "color1": "#1b2057",
+                "color1": "#0000FF",
                 "color2": ""
             },
             "marussia": {
@@ -72,14 +72,25 @@
             },
             "sauber": {
                 "id": 7,
-                "color1": "#353336",
+                "color1": "#006EFF",
                 "color2": ""
             },
             "caterham": {
                 "id": 194,
                 "color1": "#006a22",
                 "color2": ""
+            },
+            "haas": {
+              "id": 0,
+              "color1": "#6C0000",
+              "color2": ""
+            },
+            "renault": {
+              "id": 0,
+              "color1": "#FFD800",
+              "color2": ""
             }
+            
         },
         "nationality": {
             "American": "us",
