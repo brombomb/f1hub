@@ -93,16 +93,22 @@ angular.module('f1App')
             });
           });
       })
-    
-    .controller('DriverCtrl', function ($scope, $http) {
 
-        $scope.baseurl = 'http://ergast.com/api/f1/current/';
+    .controller('DriverCtrl', function ($scope, $http, $routeParams) {
+        $scope.baseurl = 'http://ergast.com/api/f1/';
+        var url = $scope.baseurl;
+
+        if (!$routeParams.season || !$routeParams.round) {
+          url += 'current';
+        } else {
+          url += $routeParams.season + '/' + $routeParams.round;
+        }
 
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
-        });
+          });
 
-        $http({method: 'get', url: $scope.baseurl + 'driverStandings.json'}).success(function(data) {
+        $http({method: 'get', url: url + '/driverStandings.json'}).success(function(data) {
             $scope.standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
           });
       })
