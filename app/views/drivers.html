@@ -8,7 +8,7 @@
                 <th><i class="fa fa-flag-checkered"></i> Wins</th>
                 <th>Driver</th>
                 <th>Constructor</th>
-                <th></th>
+                <!--Car Image Placeholder <th></th> -->
             </tr>
         </thead>
         <tbody>
@@ -18,17 +18,19 @@
                 <td>{{place.wins}}</td>
                 <td class="driver-head">
                     <a ng-href="{{place.Driver.url}}">
-                        <img ng-src="{{place.Driver.driverId | portrait:this}}">
-                        <br>
+                        <!-- Driver Headshot <img ng-src="{{place.Driver.driverId | portrait:this}}">
+                        <br> -->
                         <span class="flag-icon flag-icon-{{lookup.ids.nationality[place.Driver.nationality]}}"></span>
                         {{place.Driver.givenName}} {{place.Driver.familyName}} 
                         # {{place.Driver.permanentNumber}}
                     </a>
                 </td>
                 <td>{{place.Constructors[0].name}}</td>
+                <!-- Picture of Car here
                 <td>
                     <span class="car" ng-class="place.Constructors[0].constructorId"></span>
                 </td>
+                -->
             </tr>
         </tbody>
     </table>
