@@ -1,6 +1,8 @@
 # F1Hub
 
-A spolier free way to view results from the current season of Formula 1
+A spolier free way to view results from the current season of Formula 1.
+
+Check it out live at https://brombomb.github.io/f1hub/app
 
 ## Installation
  
