@@ -28,6 +28,9 @@ grunt serve
 
 A web page should open in your default browser with the app but if not just go to [http://localhost:9000/](http://localhost:9000/)
 
-### How to contribute
+## Contributors
 We'd love help writing audits, fixing bugs, and making the tool more useful!
 See [Contributing](./CONTRIBUTING.md) to get started.
+
+## License
+This project is under the MIT License. See the [LICENSE](./LICENSE) file for the full license text.
