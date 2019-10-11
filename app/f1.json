@@ -89,7 +89,17 @@
               "id": 0,
               "color1": "#FFD800",
               "color2": ""
-            }
+            },
+            "racing_point": {
+                "id": 188,
+                "color1": "#ff80c7",
+                "color2": ""
+            },
+            "alfa": {
+              "id": 0,
+              "color1": "#9B0000",
+              "color2": ""
+            },
             
         },
         "nationality": {
