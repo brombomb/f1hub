@@ -52,7 +52,7 @@
             },
             "williams": {
                 "id": 4,
-                "color1": "#ffffff",
+                "color1": "#0082fa",
                 "color2": ""
             },
             "lotus_f1": {
@@ -99,7 +99,7 @@
               "id": 0,
               "color1": "#9B0000",
               "color2": ""
-            }
+            },
             
         },
         "nationality": {
