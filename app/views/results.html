@@ -10,6 +10,7 @@
                 <th></th>
                 <th ng-click="sort='position'; reverse=false" class="sortable">pts</th>
                 <th ng-click="sort='FastestLap.Time.time'; reverse=!reverse" class="sortable">Fastest Lap <i class="fa fa-tachometer"></i></th>
+                <th>Delta</th>
                 <th>Classification</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                 </td>
                 <td><span ng-show="result.points > 0">{{result.points}}</span></td>
                 <td ng-class="{'fastest': result.FastestLap.rank == 1}">{{result.FastestLap.Time.time}}</td>
+                <td>{{result.Time.time}}</td>
                 <td>{{result.status}}</td>
             </tr>
         </tbody>
