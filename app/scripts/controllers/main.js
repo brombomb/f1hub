@@ -4,7 +4,7 @@ angular.module('f1App')
     .controller('MainCtrl', function ($scope, $http) {
 
         $scope.today = new Date();
-        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.baseurl = 'https://ergast.com/api/f1/';
 
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
@@ -27,7 +27,7 @@ angular.module('f1App')
 
     .controller('ResultsCtrl', function ($scope, $http, $routeParams) {
 
-        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.baseurl = 'https://ergast.com/api/f1/';
         $scope.sort = 'position';
         var numbers = [
             'position', 
@@ -69,7 +69,7 @@ angular.module('f1App')
     
     .controller('QualiCtrl', function ($scope, $http, $routeParams) {
 
-        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.baseurl = 'https://ergast.com/api/f1/';
         $scope.sort = 'position'
         var numbers = [
             'position', 
@@ -95,7 +95,7 @@ angular.module('f1App')
       })
 
     .controller('DriverCtrl', function ($scope, $http, $routeParams) {
-        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.baseurl = 'https://ergast.com/api/f1/';
         var url = $scope.baseurl;
 
         if (!$routeParams.season || !$routeParams.round) {
@@ -114,7 +114,7 @@ angular.module('f1App')
       })
 
     .controller('ConstructorCtrl', function ($scope, $http, $routeParams) {
-        $scope.baseurl = 'http://ergast.com/api/f1/';
+        $scope.baseurl = 'https://ergast.com/api/f1/';
 
         var url = $scope.baseurl;
 
