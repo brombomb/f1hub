@@ -45,9 +45,9 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-
         $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/results.json'}).success(function(data) {
             $scope.results = data.MRData.RaceTable.Races[0];
+
             angular.forEach($scope.results.Results, function(result, idx) {
                 for(var i in result) {
                     if(result.hasOwnProperty(i) && numbers.indexOf(i) !== -1) {
@@ -64,6 +64,11 @@ angular.module('f1App')
                     );
                 result.change.amount = Math.abs(result.grid - result.position);
             });
+
+            $http({method: 'get', url: $scope.baseurl + 'current/' + $scope.results.round
+              + '/driverStandings.json'}).success(function(driverStandingsData) {
+                $scope.driverStandings = driverStandingsData.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+              });
           });
       })
     
