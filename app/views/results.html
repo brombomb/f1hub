@@ -54,8 +54,6 @@
                 <td class="color" style="background-color: {{lookup.ids.constructors[result.Constructors[0].constructorId].color1}}">{{result.positionText}}</td>
                 <td class="driver-head">
                     <a ng-href="{{result.Driver.url}}">
-                        <img ng-src="{{result.Driver.driverId | helmet:this}}">
-                        <br>
                         <span class="flag-icon flag-icon-{{lookup.ids.nationality[result.Driver.nationality]}}"></span>
                         {{result.Driver.givenName}} {{result.Driver.familyName}}
                         # {{result.number}}
