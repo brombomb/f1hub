@@ -5,6 +5,7 @@
             <tr>
                 <th></th>
                 <th>Points</th>
+                <th>Delta</th>
                 <th><i class="fa fa-flag-checkered"></i> Wins</th>
                 <th>Driver</th>
                 <th>Constructor</th>
@@ -15,13 +16,14 @@
             <tr ng-repeat="place in standings">
                 <td class="color" style="background-color: {{lookup.ids.constructors[place.Constructors[0].constructorId].color1}}">{{place.position}}</td>
                 <td>{{place.points}}</td>
+                <td><span ng-if="$index !== 0">{{place.points - standings[$index -1].points }}</span></td>
                 <td>{{place.wins}}</td>
                 <td class="driver-head">
                     <a ng-href="{{place.Driver.url}}">
                         <!-- Driver Headshot <img ng-src="{{place.Driver.driverId | portrait:this}}">
                         <br> -->
                         <span class="flag-icon flag-icon-{{lookup.ids.nationality[place.Driver.nationality]}}"></span>
-                        {{place.Driver.givenName}} {{place.Driver.familyName}} 
+                        {{place.Driver.givenName}} {{place.Driver.familyName}}
                         # {{place.Driver.permanentNumber}}
                     </a>
                 </td>
