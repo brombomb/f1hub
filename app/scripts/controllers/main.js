@@ -16,8 +16,10 @@ angular.module('f1App')
                 if($scope.season.Races.hasOwnProperty(i)) {
                     var race = $scope.season.Races[i];
                     if(race.date !== undefined) {
+                        let dt = race.date + 'T' + race.time;
                         $scope.season.Races[i]['results'] = Date.parse(race.date) < $scope.today;
-                        $scope.season.Races[i]['dt'] = race.date + 'T' + race.time;
+                        $scope.season.Races[i]['dt'] = dt;
+                        $scope.season.Races[i]['localeTime'] = new Date(dt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
                     }
                 }
             }

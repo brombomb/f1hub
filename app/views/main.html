@@ -21,7 +21,10 @@
                     </div>
                     <span ng-if="race.results === false">{{race.raceName}}</span>
                 </td>
-                <td>{{race.dt | date: short}}</td>
+                <td>
+                    <div>{{race.dt | date: short}}</div>
+                    <div class="race-time">{{race.localeTime}}</div>
+                </td>
                 <td>
                     <a ng-href="{{race.Circuit.url}}" target="blank">
                         {{race.Circuit.circuitName}} 
