@@ -109,6 +109,11 @@ td {
   margin-right: 6px;
 }
 
+
+.race-time {
+    font-size: .5rem;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   /* Remove the padding we set earlier */
