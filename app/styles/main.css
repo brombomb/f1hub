@@ -111,7 +111,7 @@ td {
 
 
 .race-time {
-    font-size: .5rem;
+    font-size: 1rem;
 }
 
 /* Responsive: Portrait tablets and up */
@@ -145,63 +145,4 @@ td {
     background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 50%,rgba(255,255,255,0) 100%); /* IE10+ */
     background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 50%,rgba(255,255,255,0) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
-}
-
-.car {
-    background-image: url('/f1hub/app/images/f1-sm.jpg');
-    width: 263px;
-    height: 58px;
-    display: inline-block;
-}
-
-/* background-position: Xpx Ypx */
-.car.red_bull {
-    background-position: -25px -87px; 
-}
-
-.car.mercedes {
-    background-position: -301px -87px; 
-    height: 57px;
-}
-
-.car.ferrari {
-    background-position: -578px -87px; 
-    height: 57px;
-}
-
-.car.lotus_f1 {
-    background-position: -25px -222px; 
-}
-
-.car.mclaren {
-    background-position: -301px -222px; 
-}
-
-.car.force_india {
-    background-position: -579px -222px; 
-}
-
-.car.sauber {
-    background-position: -25px -360px; 
-    height: 57px;
-}
-
-.car.toro_rosso {
-    background-position: -301px -360px; 
-    height: 57px;
-}
-
-.car.williams {
-    background-position: -579px -360px; 
-    height: 57px;
-}
-
-.car.marussia {
-    background-position: -25px -496px; 
-    height: 56px;
-}
-
-.car.caterham {
-    background-position: -579px -496px; 
-    height: 57px;
 }
