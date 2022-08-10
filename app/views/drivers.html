@@ -24,7 +24,12 @@
                         # {{place.Driver.permanentNumber}}
                     </a>
                 </td>
-                <td>{{place.Constructors[0].name}}</td>
+                <td><a href="{{place.Constructors[0].url}}">{{place.Constructors[0].name}}</a></td>
+                <!-- Picture of Car here
+                <td>
+                    <span class="car" ng-class="place.Constructors[0].constructorId"></span>
+                </td>
+                -->
             </tr>
         </tbody>
     </table>
