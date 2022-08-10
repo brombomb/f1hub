@@ -60,7 +60,6 @@ body {
 }
 
 .driver-head {
-    text-align: center;
 }
 
 .driver-head a {
@@ -74,7 +73,6 @@ body {
 th, 
 td {
     vertical-align: middle !important;
-    text-align: center;
 }
 
 .sortable {
