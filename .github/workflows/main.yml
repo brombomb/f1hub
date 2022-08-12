@@ -8,10 +8,11 @@ name: CI
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
 jobs:
   merge-branch:
+    permissions:
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
