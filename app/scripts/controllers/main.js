@@ -71,6 +71,11 @@ angular.module('f1App')
               + '/driverStandings.json'}).success(function(driverStandingsData) {
                 $scope.driverStandings = driverStandingsData.MRData.StandingsTable.StandingsLists[0].DriverStandings;
               });
+
+            $http({method: 'get', url: $scope.baseurl + 'current/' + $scope.results.round
+              + '/constructorStandings.json'}).success(function(constructorStandingsData) {
+                $scope.constructorStandings = constructorStandingsData.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
+              });
           });
       })
     
