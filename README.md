@@ -17,13 +17,12 @@ cd f1hub
 
 # node/npm should be installed first
 npm install
-bower install
 ```
 
 ### Run
 
 ```sh
-grunt serve
+npm run start
 ```
 
 A web page should open in your default browser with the app but if not just go to [http://localhost:9000/](http://localhost:9000/)
