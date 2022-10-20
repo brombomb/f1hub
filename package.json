@@ -2,14 +2,12 @@
   "name": "f1-hub",
   "version": "0.0.0",
   "devDependencies": {
-    "http-server": "^14.1.1",
-    "nodemon": "^2.0.20"
+    "browser-sync": "^2.27.10"
   },
   "engines": {
     "node": ">=16"
   },
   "scripts": {
-    "start-watch": "nodemon ./app/index.html localhost 9000",
-    "start": "http-server -p 9000"
+    "start": "browser-sync app -w --port 9000"
   }
 }
