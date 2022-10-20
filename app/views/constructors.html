@@ -5,6 +5,7 @@
             <tr>
                 <th></th>
                 <th>Points</th>
+                <th>Delta</th>
                 <th><i class="fa fa-flag-checkered"></i> Wins</th>
                 <th>Constructor</th>
                 <th>Nationality</th>
@@ -14,6 +15,7 @@
             <tr ng-repeat="place in standings">
                 <td class="color" style="background-color: {{lookup.ids.constructors[place.Constructor.constructorId].color1}}">{{place.position}}</td>
                 <td>{{place.points}}</td>
+                <td><span ng-if="$index !== 0">{{place.points - standings[$index -1].points }}</span></td>
                 <td>{{place.wins}}</td>
                 <td><a href="{{place.Constructor.url}}">{{place.Constructor.name}}</a></td>
                 <td>
