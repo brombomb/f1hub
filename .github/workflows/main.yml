@@ -7,16 +7,14 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 jobs:
   merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code 
-        uses: actions/checkout@v2
       - name: Branch Merge
         uses: everlytic/branch-merge@1.1.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_ref: 'master'
+          source_ref: 'main'
           target_branch: 'gh-pages'
