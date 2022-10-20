@@ -12,8 +12,6 @@ jobs:
   merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code 
-        uses: actions/checkout@v2
       - name: Branch Merge
         uses: everlytic/branch-merge@1.1.4
         with:
