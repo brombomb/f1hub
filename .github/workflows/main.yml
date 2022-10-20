@@ -10,12 +10,10 @@ on:
     branches: [master]
 jobs:
   merge-branch:
-    permissions:
-      issues: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Code 
+        uses: actions/checkout@v2
       - name: Branch Merge
         uses: everlytic/branch-merge@1.1.4
         with:
