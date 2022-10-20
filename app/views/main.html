@@ -4,9 +4,11 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Race <i class="fa fa-flag-o"></i></th>
+                <th>Race Name<i class="fa fa-flag-o"></i></th>
+                <th>Quali <i class="fa fa-calendar"></i></th>
                 <th>Date <i class="fa fa-calendar"></i></th>
                 <th>Circuit</th>
+                <th>Results</th>
                 <th>Standings</th>
             </tr>
         </thead>
@@ -14,12 +16,11 @@
             <tr ng-repeat="race in season.Races">
                 <td>{{race.round}}</td>
                 <td>
-                    <div ng-if="race.results">
-                    <a ng-href="#/results/{{race.Circuit.circuitId}}">{{race.raceName}} <i class="fa fa-trophy"></i></a>
-                    |
-                    <a ng-href="#/quali/{{race.Circuit.circuitId}}">Quali <i class="fa fa-clock-o"></i></a>
-                    </div>
-                    <span ng-if="race.results === false">{{race.raceName}}</span>
+                    {{race.raceName}}
+                </td>
+                <td>
+                    <div>{{race.Qualifying.dt | date: short}}</div>
+                    <div class="race-time">{{race.Qualifying.localeTime}}</div>
                 </td>
                 <td>
                     <div>{{race.dt | date: short}}</div>
@@ -27,8 +28,15 @@
                 </td>
                 <td>
                     <a ng-href="{{race.Circuit.url}}" target="blank">
-                        {{race.Circuit.circuitName}} 
+                        {{race.Circuit.circuitName}}
                     </a>
+                </td>
+                <td>
+                    <div ng-if="race.results">
+                        <a ng-href="#/quali/{{race.Circuit.circuitId}}"><i class="fa fa-clock-o"></i></a>
+                        |
+                        <a ng-href="#/results/{{race.Circuit.circuitId}}"><i class="fa fa-trophy"></i></a>
+                    </div>
                 </td>
                 <td>
                   <div ng-if="race.results">

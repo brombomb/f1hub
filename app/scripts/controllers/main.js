@@ -20,6 +20,11 @@ angular.module('f1App')
                         $scope.season.Races[i]['results'] = Date.parse(race.date) < $scope.today;
                         $scope.season.Races[i]['dt'] = dt;
                         $scope.season.Races[i]['localeTime'] = new Date(dt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+
+                        let qualiDt = race.Qualifying.date + 'T' + race.Qualifying.time;
+                        $scope.season.Races[i]['Qualifying']['results'] = Date.parse(race.Qualifying.date) < $scope.today;
+                        $scope.season.Races[i]['Qualifying']['dt'] = qualiDt;
+                        $scope.season.Races[i]['Qualifying']['localeTime'] = new Date(qualiDt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
                     }
                 }
             }
@@ -32,7 +37,7 @@ angular.module('f1App')
         $scope.baseurl = 'https://ergast.com/api/f1/';
         $scope.sort = 'position';
         var numbers = [
-            'position', 
+            'position',
             'number',
             'points',
             'grid',
@@ -58,9 +63,9 @@ angular.module('f1App')
                 }
                 result.change = {};
                 result.change.type = (result.grid - result.position > 0
-                    ? 'arrow-circle-up' 
-                    : (result.grid === result.position 
-                        ? 'minus-circle' 
+                    ? 'arrow-circle-up'
+                    : (result.grid === result.position
+                        ? 'minus-circle'
                         : 'arrow-circle-down'
                     )
                     );
@@ -78,13 +83,13 @@ angular.module('f1App')
               });
           });
       })
-    
+
     .controller('QualiCtrl', function ($scope, $http, $routeParams) {
 
         $scope.baseurl = 'https://ergast.com/api/f1/';
         $scope.sort = 'position'
         var numbers = [
-            'position', 
+            'position',
             'number'
         ];
 
