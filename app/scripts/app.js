@@ -22,6 +22,10 @@ angular
         templateUrl: 'views/quali.html',
         controller: 'QualiCtrl'
       })
+      .when('/sprint/:circuitId', {
+        templateUrl: 'views/sprint.html',
+        controller: 'SprintCtrl'
+      })
       .when('/drivers', {
         templateUrl: 'views/drivers.html',
         controller: 'DriverCtrl'
