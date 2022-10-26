@@ -5,11 +5,11 @@
             <tr>
                 <th>#</th>
                 <th>Race Name <i class="fa fa-flag-o"></i></th>
-                <th>Quali <i class="fa fa-calendar"></i></th>
-                <th>Date <i class="fa fa-calendar"></i></th>
-                <th>Circuit</th>
-                <th>Results</th>
-                <th>Standings</th>
+                <th>Quali <i class="fa fa-clock-o"></i></th>
+                <th>Sprint <i class="fa fa-sort-numeric-asc"></i></th>
+                <th>Race <i class="fa fa-trophy"></i></th>
+                <th>Circuit <i class="fa fa-link"></i></th>
+                <th>Standings <i class="fa fa-globe"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -19,24 +19,39 @@
                     {{race.raceName}}
                 </td>
                 <td>
-                    <div>{{race.Qualifying.dt | date: short}}</div>
-                    <div class="race-time">{{race.Qualifying.localeTime}}</div>
+                    <div ng-if="race.Qualifying.results">
+                        <a ng-href="#/quali/{{race.Circuit.circuitId}}">{{race.Qualifying.dt | date: short}}</a>
+                        <a ng-href="#/quali/{{race.Circuit.circuitId}}" class="race-time">{{race.Qualifying.localeTime}}</a>
+                    </div>
+                    <div ng-if="!race.Qualifying.results">
+                        {{race.Qualifying.dt | date: short}}
+                        <div class="race-time">{{race.Qualifying.localeTime}}</div>
+                    </div>
                 </td>
                 <td>
-                    <div>{{race.dt | date: short}}</div>
-                    <div class="race-time">{{race.localeTime}}</div>
+                    <div ng-if="race.Sprint.results">
+                        <a ng-href="#/sprint/{{race.Circuit.circuitId}}">{{race.Sprint.dt | date: short}}</a>
+                        <a ng-href="#/sprint/{{race.Circuit.circuitId}}" class="race-time">{{race.Sprint.localeTime}}</a>
+                    </div>
+                    <div ng-if="!race.Sprint.results">
+                        {{race.Sprint.dt | date: short}}
+                        <div class="race-time">{{race.Sprint.localeTime}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div ng-if="race.results">
+                        <a ng-href="#/race/{{race.Circuit.circuitId}}">{{race.dt | date: short}}</a>
+                        <a ng-href="#/race/{{race.Circuit.circuitId}}" class="race-time">{{race.localeTime}}</a>
+                    </div>
+                    <div ng-if="!race.results">
+                        {{race.dt | date: short}}
+                        <div class="race-time">{{race.localeTime}}</div>
+                    </div>
                 </td>
                 <td>
                     <a ng-href="{{race.Circuit.url}}" target="blank">
                         {{race.Circuit.circuitName}}
                     </a>
-                </td>
-                <td>
-                    <div ng-if="race.results">
-                        <a ng-href="#/quali/{{race.Circuit.circuitId}}"><i class="fa fa-clock-o"></i></a>
-                        |
-                        <a ng-href="#/results/{{race.Circuit.circuitId}}"><i class="fa fa-trophy"></i></a>
-                    </div>
                 </td>
                 <td>
                   <div ng-if="race.results">

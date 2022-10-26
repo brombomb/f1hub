@@ -25,6 +25,14 @@ angular.module('f1App')
                         $scope.season.Races[i]['Qualifying']['results'] = Date.parse(race.Qualifying.date) < $scope.today;
                         $scope.season.Races[i]['Qualifying']['dt'] = qualiDt;
                         $scope.season.Races[i]['Qualifying']['localeTime'] = new Date(qualiDt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+
+                        if (race?.Sprint) {
+                            let sprintDt = race.Sprint.date + 'T' + race.Sprint.time;
+                            $scope.season.Races[i]['Sprint']['results'] = Date.parse(race.Sprint.date) < $scope.today;
+                            $scope.season.Races[i]['Sprint']['dt'] = sprintDt;
+                            $scope.season.Races[i]['Sprint']['localeTime'] = new Date(sprintDt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+                        }
+
                     }
                 }
             }
@@ -107,6 +115,48 @@ angular.module('f1App')
                         result[i] = parseInt(result[i], 10);
                     }
                 }
+            });
+          });
+      })
+
+    .controller('SprintCtrl', function ($scope, $http, $routeParams) {
+
+        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.sort = 'position';
+        var numbers = [
+            'position',
+            'number',
+            'points',
+            'grid',
+            'laps',
+            'millis',
+            'rank',
+            'lap',
+            'speed'
+        ];
+
+        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+            $scope.lookup = data;
+        });
+
+        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/sprint.json'}).success(function(data) {
+            $scope.results = data.MRData.RaceTable.Races[0];
+
+            angular.forEach($scope.results.SprintResults, function(result, idx) {
+                for(var i in result) {
+                    if(result.hasOwnProperty(i) && numbers.indexOf(i) !== -1) {
+                        result[i] = parseInt(result[i], 10);
+                    }
+                }
+                result.change = {};
+                result.change.type = (result.grid - result.position > 0
+                    ? 'arrow-circle-up'
+                    : (result.grid === result.position
+                        ? 'minus-circle'
+                        : 'arrow-circle-down'
+                    )
+                    );
+                result.change.amount = Math.abs(result.grid - result.position);
             });
           });
       })
