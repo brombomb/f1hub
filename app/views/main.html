@@ -5,10 +5,9 @@
             <tr>
                 <th>#</th>
                 <th>Race Name <i class="fa fa-flag-o"></i></th>
-                <th>Quali <i class="fa fa-clock-o"></i></th>
-                <th>Sprint <i class="fa fa-sort-numeric-asc"></i></th>
+                <th>Qualifying <i class="fa fa-clock-o"></i></th>
+                <th>Sprint Race <i class="fa fa-sort-numeric-asc"></i></th>
                 <th>Race <i class="fa fa-trophy"></i></th>
-                <th>Circuit <i class="fa fa-link"></i></th>
                 <th>Standings <i class="fa fa-globe"></i></th>
             </tr>
         </thead>
@@ -17,6 +16,10 @@
                 <td>{{race.round}}</td>
                 <td>
                     {{race.raceName}}
+                    <br>
+                    <a ng-href="{{race.Circuit.url}}" class="circuit-link" target="blank">
+                        {{race.Circuit.circuitName}}
+                    </a>
                 </td>
                 <td>
                     <div ng-if="race.Qualifying.results">
@@ -47,11 +50,6 @@
                         {{race.dt | date: short}}
                         <div class="race-time">{{race.localeTime}}</div>
                     </div>
-                </td>
-                <td>
-                    <a ng-href="{{race.Circuit.url}}" target="blank">
-                        {{race.Circuit.circuitName}}
-                    </a>
                 </td>
                 <td>
                   <div ng-if="race.results">
