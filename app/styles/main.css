@@ -111,6 +111,7 @@ td {
 
 .race-time {
     font-size: 1rem;
+    display: block;
 }
 
 /* Responsive: Portrait tablets and up */
