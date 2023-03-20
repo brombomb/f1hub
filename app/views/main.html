@@ -43,8 +43,8 @@
                 </td>
                 <td>
                     <div ng-if="race.results">
-                        <a ng-href="#/race/{{race.Circuit.circuitId}}">{{race.dt | date: short}}</a>
-                        <a ng-href="#/race/{{race.Circuit.circuitId}}" class="race-time">{{race.localeTime}}</a>
+                        <a ng-href="#/results/{{race.Circuit.circuitId}}">{{race.dt | date: short}}</a>
+                        <a ng-href="#/results/{{race.Circuit.circuitId}}" class="race-time">{{race.localeTime}}</a>
                     </div>
                     <div ng-if="!race.results">
                         {{race.dt | date: short}}
