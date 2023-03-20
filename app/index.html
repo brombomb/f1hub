@@ -1,61 +1,91 @@
 <!doctype html>
-  <head>
-    <meta charset="utf-8">
-    <title>F1 Hub by Brombomb</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@forevolve/bootstrap-dark@2.0.0/dist/css/bootstrap-dark-prefers-light.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" integrity="sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/flag-icon.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="f1App">
 
-    <!-- Add your site or application content here -->
-    <div class="container">
+<head>
+  <meta charset="utf-8">
+  <title>F1 Hub by Brombomb</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@forevolve/bootstrap-dark@2.0.0/dist/css/bootstrap-dark-prefers-light.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"
+    integrity="sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css({.tmp,app}) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/flag-icon.css">
+  <!-- endbuild -->
+</head>
 
-        <div class="header container">
-          <div class="row">
-            <div class="col-sm">
-              <h3><a href="#">F1 Hub <i class="fa fa-tachometer"></i></a></h3>
-            </div>
-            <div class="col-sm">
-              <ul class="nav nav-pills justify-content-end">
-                  <li class="nav-item"><a class="nav-link" href="#/drivers">Driver Standings <i class="fa fa-car"></i></a></li>
-                  <li class="nav-item"><a class="nav-link" href="#/constructors">Constructor Standings <i class="fa fa-gears"></i></a></li>
-              </ul>
-            </div>
-          </div>
+<body ng-app="f1App">
+
+  <!-- Add your site or application content here -->
+  <div class="container">
+
+    <div class="header container">
+      <div class="row">
+        <div class="col-sm">
+          <h3><a href="#">F1 Hub <i class="fa fa-tachometer"></i></a></h3>
         </div>
-
-        <div id="scope" ng-view></div>
-
-        <div class="footer">
-            <p class="float-left"><span class="fa fa-heart"></span> Brombomb
-            <span class="small">This app has no affiliation with FIA, FOM, Formula One or its teams. It is an unofficial product</span>
-</p>
-            <a class="float-right" href="#/info"><span class="fa fa-info-circle"></span> info</a>
+        <div class="col-sm">
+          <ul class="nav nav-pills justify-content-end">
+            <li class="nav-item"><a class="nav-link" href="#/drivers">Driver Standings <i class="fa fa-car"></i></a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#/constructors">Constructor Standings <i
+                  class="fa fa-gears"></i></a></li>
+          </ul>
         </div>
+      </div>
     </div>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js" integrity="sha512-ju6u+4bPX50JQmgU97YOGAXmRMrD9as4LE05PdC3qycsGQmjGlfm041azyB1VfCXpkpt1i9gqXCT6XuxhBJtKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular.min.js" integrity="sha512-DBpNfbiMH5vKLbyz6CfuQUvJxDCy6i9vfNpvHDxgDy1/LGwJQwyqF6cN7pzvkKCL4XdRPdTzH03fjxG9P0QI7w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-resource.min.js" integrity="sha512-hdmA7j22j3VUUeEGhYGDrfSnA0aDnnywuc136OkOm5n7CIOHU3yE/ySNRU6WC2L6mytqZxwZgZrWLnraayjHOQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-cookies.min.js" integrity="sha512-PCxgMy18L9UR2IbDLsYpK3ui74u5zFc9GPNwjiJ6JesET7CtEd9VnKz+Pwqbhq5KmMot38zw821jhUo4duxiQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-sanitize.min.js" integrity="sha512-YChnJLEU3tlw9FUKoLSLFRshbtPTvvR52YgNaEokLAKruxLOIdD7AsKWUt6Dwi4LpxoOCk/WjcAqjqWHwVROOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-route.min.js" integrity="sha512-DjIOstnxTgTKKTy5YWV9uun5+DhgRre6I6m+Kb3E26n8bODSEhrlWcD3xCoLY+MLatqzYQynkw7dtMnOvyqkrA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+    <div id="scope" ng-view></div>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    <div class="footer">
+      <p class="float-left"><span class="fa fa-heart"></span> Brombomb
+        <span class="small">This app has no affiliation with FIA, FOM, Formula One or its teams. It is an unofficial
+          product</span>
+      </p>
+
+      <div class="float-right">
+        <a class="float-right-item" href="https://github.com/brombomb/f1hub" target="_blank"
+          rel="noopener noreferrer"><i class="fa fa-brands fa-github"></i>
+          GitHub</a>
+        <a class="float-right-item" href="#/info"><span class="fa fa-info-circle"></span> Info</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"
+    integrity="sha512-ju6u+4bPX50JQmgU97YOGAXmRMrD9as4LE05PdC3qycsGQmjGlfm041azyB1VfCXpkpt1i9gqXCT6XuxhBJtKg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular.min.js"
+    integrity="sha512-DBpNfbiMH5vKLbyz6CfuQUvJxDCy6i9vfNpvHDxgDy1/LGwJQwyqF6cN7pzvkKCL4XdRPdTzH03fjxG9P0QI7w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-resource.min.js"
+    integrity="sha512-hdmA7j22j3VUUeEGhYGDrfSnA0aDnnywuc136OkOm5n7CIOHU3yE/ySNRU6WC2L6mytqZxwZgZrWLnraayjHOQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-cookies.min.js"
+    integrity="sha512-PCxgMy18L9UR2IbDLsYpK3ui74u5zFc9GPNwjiJ6JesET7CtEd9VnKz+Pwqbhq5KmMot38zw821jhUo4duxiQQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-sanitize.min.js"
+    integrity="sha512-YChnJLEU3tlw9FUKoLSLFRshbtPTvvR52YgNaEokLAKruxLOIdD7AsKWUt6Dwi4LpxoOCk/WjcAqjqWHwVROOg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.15/angular-route.min.js"
+    integrity="sha512-DjIOstnxTgTKKTy5YWV9uun5+DhgRre6I6m+Kb3E26n8bODSEhrlWcD3xCoLY+MLatqzYQynkw7dtMnOvyqkrA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"
+    integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <!-- endbuild -->
 </body>
+
 </html>
