@@ -150,3 +150,7 @@ td {
 a {
   color: #007bff !important;
 }
+
+.float-right-item {
+  padding-left: 10px;
+}
