@@ -2,7 +2,7 @@
   "name": "f1-hub",
   "version": "0.0.0",
   "devDependencies": {
-    "browser-sync": "^2.28.1"
+    "browser-sync": "^2.29.1"
   },
   "engines": {
     "node": ">=16"
