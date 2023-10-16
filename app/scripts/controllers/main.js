@@ -70,14 +70,20 @@ angular.module('f1App')
                     }
                 }
                 result.change = {};
-                result.change.type = (result.grid - result.position > 0
-                    ? 'arrow-circle-up'
-                    : (result.grid === result.position
-                        ? 'minus-circle'
-                        : 'arrow-circle-down'
-                    )
-                    );
-                result.change.amount = Math.abs(result.grid - result.position);
+                result.gridText = result.grid === 0 ? 'Pit' : result.grid;
+                if(result.grid > 0) {
+                    result.change.type = (result.grid - result.position > 0
+                        ? 'arrow-circle-up'
+                        : (result.grid === result.position
+                            ? 'minus-circle'
+                            : 'arrow-circle-down'
+                        )
+                        );
+                        result.change.amount = Math.abs(result.grid - result.position);
+                } else {
+                    result.change.type = result.position === $scope.results.Results.length ? 'minus-circle' : 'arrow-circle-up';
+                    result.change.amount = Math.abs($scope.results.Results.length - result.position);
+                }
             });
 
             $http({method: 'get', url: $scope.baseurl + 'current/' + $scope.results.round
@@ -142,21 +148,27 @@ angular.module('f1App')
         $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/sprint.json'}).success(function(data) {
             $scope.results = data.MRData.RaceTable.Races[0];
 
-            angular.forEach($scope.results.SprintResults, function(result, idx) {
+            angular.forEach($scope.results.SprintResults, function(result, idx, arr) {
                 for(var i in result) {
                     if(result.hasOwnProperty(i) && numbers.indexOf(i) !== -1) {
                         result[i] = parseInt(result[i], 10);
                     }
                 }
                 result.change = {};
-                result.change.type = (result.grid - result.position > 0
-                    ? 'arrow-circle-up'
-                    : (result.grid === result.position
-                        ? 'minus-circle'
-                        : 'arrow-circle-down'
-                    )
-                    );
-                result.change.amount = Math.abs(result.grid - result.position);
+                result.gridText = result.grid === 0 ? 'Pit' : result.grid;
+                if(result.grid > 0) {
+                    result.change.type = (result.grid - result.position > 0
+                        ? 'arrow-circle-up'
+                        : (result.grid === result.position
+                            ? 'minus-circle'
+                            : 'arrow-circle-down'
+                        )
+                        );
+                        result.change.amount = Math.abs(result.grid - result.position);
+                } else {
+                    result.change.type = result.position === $scope.results.SprintResults.length ? 'minus-circle' : 'arrow-circle-up';
+                    result.change.amount = Math.abs($scope.results.SprintResults.length - result.position);
+                }
             });
           });
       })
