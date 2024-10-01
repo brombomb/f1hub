@@ -64,7 +64,7 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        $http({method: 'get', url: $scope.baseurl + 'circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
+        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
             $scope.results = data.MRData.RaceTable.Races[0];
 
             angular.forEach($scope.results.Results, function(result, idx) {
