@@ -2,47 +2,51 @@
 
 angular.module('f1App')
     .controller('MainCtrl', function ($scope, $http) {
-
         $scope.today = new Date();
-        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1';
-
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/current';
+    
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
-
+    
         $http({method: 'get', url: $scope.baseurl }).success(function(data) {
             $scope.season = data.MRData.RaceTable;
-            for(var i in $scope.season.Races) {
-                if($scope.season.Races.hasOwnProperty(i)) {
-                    var race = $scope.season.Races[i];
-                    if(race.date !== undefined) {
-                        let dt = race.date + 'T' + race.time;
-                        $scope.season.Races[i]['results'] = Date.parse(race.date) < $scope.today;
-                        $scope.season.Races[i]['dt'] = dt;
-                        $scope.season.Races[i]['localeTime'] = new Date(dt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+            angular.forEach($scope.season.Races, function(race, index) {
+                if(race.date !== undefined) {
+                    let raceDate = new Date(race.date + 'T' + race.time);
+                    race.dt = raceDate;
+                    race.results = raceDate < $scope.today;
+                    race.localeTime = raceDate.toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
 
-                        let qualiDt = race.Qualifying.date + 'T' + race.Qualifying.time;
-                        $scope.season.Races[i]['Qualifying']['results'] = Date.parse(race.Qualifying.date) < $scope.today;
-                        $scope.season.Races[i]['Qualifying']['dt'] = qualiDt;
-                        $scope.season.Races[i]['Qualifying']['localeTime'] = new Date(qualiDt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+                    if (race.Qualifying) {
+                        let qualiDate = new Date(race.Qualifying.date + 'T' + race.Qualifying.time);
+                        race.Qualifying.dt = qualiDate;
+                        race.Qualifying.results = qualiDate < $scope.today;
+                        race.Qualifying.localeTime = qualiDate.toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
+                    } else {
+                        race.Qualifying = {
+                            date: race.date,
+                            time: "14:00:00Z",
+                            dt: new Date(race.date + 'T14:00:00Z'),
+                            results: false,
+                            localeTime: new Date(race.date + 'T14:00:00Z').toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'})
+                        };
+                    }
 
-                        if (race?.Sprint) {
-                            let sprintDt = race.Sprint.date + 'T' + race.Sprint.time;
-                            $scope.season.Races[i]['Sprint']['results'] = Date.parse(race.Sprint.date) < $scope.today;
-                            $scope.season.Races[i]['Sprint']['dt'] = sprintDt;
-                            $scope.season.Races[i]['Sprint']['localeTime'] = new Date(sprintDt).toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
-                        }
-
+                    if (race.Sprint) {
+                        let sprintDate = new Date(race.Sprint.date + 'T' + race.Sprint.time);
+                        race.Sprint.dt = sprintDate;
+                        race.Sprint.results = sprintDate < $scope.today;
+                        race.Sprint.localeTime = sprintDate.toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
                     }
                 }
-            }
-          });
-
-      })
+            });
+        });
+    })
 
     .controller('ResultsCtrl', function ($scope, $http, $routeParams) {
 
-        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position';
         var numbers = [
             'position',
@@ -60,7 +64,7 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/results.json'}).success(function(data) {
+        $http({method: 'get', url: $scope.baseurl + 'circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
             $scope.results = data.MRData.RaceTable.Races[0];
 
             angular.forEach($scope.results.Results, function(result, idx) {
@@ -86,13 +90,13 @@ angular.module('f1App')
                 }
             });
 
-            $http({method: 'get', url: $scope.baseurl + 'current/' + $scope.results.round
-              + '/driverStandings.json'}).success(function(driverStandingsData) {
+            $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
+              + '/driverStandings'}).success(function(driverStandingsData) {
                 $scope.driverStandings = driverStandingsData.MRData.StandingsTable.StandingsLists[0].DriverStandings;
               });
 
-            $http({method: 'get', url: $scope.baseurl + 'current/' + $scope.results.round
-              + '/constructorStandings.json'}).success(function(constructorStandingsData) {
+            $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
+              + '/constructorStandings'}).success(function(constructorStandingsData) {
                 $scope.constructorStandings = constructorStandingsData.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
               });
           });
@@ -100,7 +104,7 @@ angular.module('f1App')
 
     .controller('QualiCtrl', function ($scope, $http, $routeParams) {
 
-        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position'
         var numbers = [
             'position',
@@ -112,7 +116,7 @@ angular.module('f1App')
         });
 
 
-        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/qualifying.json'}).success(function(data) {
+        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/qualifying'}).success(function(data) {
             $scope.race = data.MRData.RaceTable.Races[0];
             $scope.quali = data.MRData.RaceTable.Races[0].QualifyingResults;
             angular.forEach($scope.quali, function(result) {
@@ -127,7 +131,7 @@ angular.module('f1App')
 
     .controller('SprintCtrl', function ($scope, $http, $routeParams) {
 
-        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position';
         var numbers = [
             'position',
@@ -145,7 +149,7 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/sprint.json'}).success(function(data) {
+        $http({method: 'get', url: $scope.baseurl + 'current/circuits/' + $routeParams.circuitId + '/sprint'}).success(function(data) {
             $scope.results = data.MRData.RaceTable.Races[0];
 
             angular.forEach($scope.results.SprintResults, function(result, idx, arr) {
@@ -174,7 +178,7 @@ angular.module('f1App')
       })
 
     .controller('DriverCtrl', function ($scope, $http, $routeParams) {
-        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         var url = $scope.baseurl;
 
         if (!$routeParams.season || !$routeParams.round) {
@@ -187,13 +191,13 @@ angular.module('f1App')
             $scope.lookup = data;
           });
 
-        $http({method: 'get', url: url + '/driverStandings.json'}).success(function(data) {
+        $http({method: 'get', url: url + '/driverStandings'}).success(function(data) {
             $scope.standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
           });
       })
 
     .controller('ConstructorCtrl', function ($scope, $http, $routeParams) {
-        $scope.baseurl = 'https://ergast.com/api/f1/';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
         var url = $scope.baseurl;
 
@@ -207,7 +211,7 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        $http({method: 'get', url: url + '/constructorStandings.json'}).success(function(data) {
+        $http({method: 'get', url: url + '/constructorStandings'}).success(function(data) {
             $scope.standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
           });
       });
