@@ -3,13 +3,13 @@
 angular.module('f1App')
     .controller('MainCtrl', function ($scope, $http) {
         $scope.today = new Date();
-        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/current';
+        $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
     
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
     
-        $http({method: 'get', url: $scope.baseurl }).success(function(data) {
+        $http({method: 'get', url: $scope.baseurl + "current" }).success(function(data) {
             $scope.season = data.MRData.RaceTable;
             angular.forEach($scope.season.Races, function(race, index) {
                 if(race.date !== undefined) {
