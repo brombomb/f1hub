@@ -10,6 +10,8 @@ on:
     branches: [main]
 jobs:
   merge-branch:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Branch Merge
