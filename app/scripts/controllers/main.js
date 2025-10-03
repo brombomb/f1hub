@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('f1App')
-    .controller('MainCtrl', ['$scope', '$http', 'YearService', function ($scope, $http, YearService) {
+    .controller('MainCtrl', ['$scope', '$http', 'YearService', 'LookupService', function ($scope, $http, YearService, LookupService) {
         $scope.today = new Date();
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
@@ -72,7 +72,7 @@ angular.module('f1App')
         });
     }])
 
-    .controller('ResultsCtrl', ['$scope', '$http', '$routeParams', 'YearService', function ($scope, $http, $routeParams, YearService) {
+    .controller('ResultsCtrl', ['$scope', '$http', '$routeParams', 'YearService', 'LookupService', function ($scope, $http, $routeParams, YearService, LookupService) {
 
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position';
@@ -88,7 +88,7 @@ angular.module('f1App')
             'speed'
         ];
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
@@ -190,7 +190,7 @@ angular.module('f1App')
         });
     }])
 
-    .controller('QualiCtrl', ['$scope', '$http', '$routeParams', 'YearService', function ($scope, $http, $routeParams, YearService) {
+    .controller('QualiCtrl', ['$scope', '$http', '$routeParams', 'YearService', 'LookupService', function ($scope, $http, $routeParams, YearService, LookupService) {
 
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position'
@@ -199,7 +199,7 @@ angular.module('f1App')
             'number'
         ];
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
@@ -255,7 +255,7 @@ angular.module('f1App')
         });
     }])
 
-    .controller('SprintCtrl', ['$scope', '$http', '$routeParams', 'YearService', function ($scope, $http, $routeParams, YearService) {
+    .controller('SprintCtrl', ['$scope', '$http', '$routeParams', 'YearService', 'LookupService', function ($scope, $http, $routeParams, YearService, LookupService) {
 
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
         $scope.sort = 'position';
@@ -271,7 +271,7 @@ angular.module('f1App')
             'speed'
         ];
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
@@ -342,10 +342,10 @@ angular.module('f1App')
         });
     }])
 
-    .controller('DriverCtrl', ['$scope', '$http', '$routeParams', 'YearService', function ($scope, $http, $routeParams, YearService) {
+    .controller('DriverCtrl', ['$scope', '$http', '$routeParams', 'YearService', 'LookupService', function ($scope, $http, $routeParams, YearService, LookupService) {
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
@@ -417,10 +417,10 @@ angular.module('f1App')
         });
     }])
 
-    .controller('ConstructorCtrl', ['$scope', '$http', '$routeParams', 'YearService', function ($scope, $http, $routeParams, YearService) {
+    .controller('ConstructorCtrl', ['$scope', '$http', '$routeParams', 'YearService', 'LookupService', function ($scope, $http, $routeParams, YearService, LookupService) {
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
-        $http({method: 'get', url: 'f1.json'}).success(function(data) {
+        LookupService.getLookupData().then(function(data) {
             $scope.lookup = data;
         });
 
