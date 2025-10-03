@@ -16,8 +16,9 @@ angular.module('f1App')
                 // The watcher will trigger loadData once it's available.
                 return;
             }
-            $http({method: 'get', url: $scope.baseurl + selectedYear }).success(function(data) {
-                $scope.season = data.MRData.RaceTable;
+            YearService.getSeasonData(selectedYear).then(function(seasonData) {
+                if (!seasonData) return;
+                $scope.season = seasonData;
                 angular.forEach($scope.season.Races, function(race, index) {
                     if(race.date !== undefined) {
                         let raceDate = new Date(race.date + 'T' + race.time);
@@ -96,6 +97,13 @@ angular.module('f1App')
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
                 $scope.results = data.MRData.RaceTable.Races[0];
 
@@ -196,6 +204,13 @@ angular.module('f1App')
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying'}).success(function(data) {
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.race = data.MRData.RaceTable.Races[0];
@@ -257,6 +272,13 @@ angular.module('f1App')
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint'}).success(function(data) {
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.results = data.MRData.RaceTable.Races[0];
