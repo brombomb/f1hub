@@ -4,7 +4,7 @@ angular.module('f1App')
     .controller('MainCtrl', ['$scope', '$http', 'YearService', function ($scope, $http, YearService) {
         $scope.today = new Date();
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
-    
+
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
@@ -91,6 +91,10 @@ angular.module('f1App')
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
+
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
 
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
@@ -199,6 +203,10 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
+
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
@@ -266,6 +274,10 @@ angular.module('f1App')
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
+
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
 
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();

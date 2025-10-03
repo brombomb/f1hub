@@ -154,3 +154,10 @@ a {
 .float-right-item {
   padding-left: 10px;
 }
+
+.race-nav-link:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff !important;
+  text-decoration: none;
+}
