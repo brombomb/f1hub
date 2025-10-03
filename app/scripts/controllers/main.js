@@ -92,15 +92,19 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        // Navigation variables
-        $scope.previousRace = null;
-        $scope.nextRace = null;
-
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+        };
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
                 $scope.results = data.MRData.RaceTable.Races[0];
 
@@ -196,15 +200,18 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        // Navigation variables
-        $scope.previousRace = null;
-        $scope.nextRace = null;
-
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying'}).success(function(data) {
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.race = data.MRData.RaceTable.Races[0];
@@ -261,15 +268,18 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
-        // Navigation variables
-        $scope.previousRace = null;
-        $scope.nextRace = null;
-
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
                 return;
             }
+
+            // Load navigation data using the cached service
+            YearService.getRaceNavigation($routeParams.circuitId, selectedYear).then(function(navigation) {
+                $scope.previousRace = navigation.previousRace;
+                $scope.nextRace = navigation.nextRace;
+            });
+
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint'}).success(function(data) {
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.results = data.MRData.RaceTable.Races[0];
