@@ -92,6 +92,10 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
+
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
@@ -103,7 +107,6 @@ angular.module('f1App')
                 $scope.previousRace = navigation.previousRace;
                 $scope.nextRace = navigation.nextRace;
             });
-        };
 
             $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
                 $scope.results = data.MRData.RaceTable.Races[0];
@@ -200,6 +203,10 @@ angular.module('f1App')
             $scope.lookup = data;
         });
 
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
+
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear || !$routeParams.circuitId) {
@@ -267,6 +274,10 @@ angular.module('f1App')
         $http({method: 'get', url: 'f1.json'}).success(function(data) {
             $scope.lookup = data;
         });
+
+        // Navigation variables
+        $scope.previousRace = null;
+        $scope.nextRace = null;
 
         $scope.loadData = function() {
             var selectedYear = YearService.getSelectedYear();
