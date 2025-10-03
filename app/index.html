@@ -23,6 +23,7 @@
               <h3><a href="#">F1 Hub <i class="fa fa-tachometer"></i></a></h3>
             </div>
             <div class="col-sm">
+              <year-dropdown></year-dropdown>
               <ul class="nav nav-pills justify-content-end">
                   <li class="nav-item"><a class="nav-link" href="#/drivers">Driver Standings <i class="fa fa-car"></i></a></li>
                   <li class="nav-item"><a class="nav-link" href="#/constructors">Constructor Standings <i class="fa fa-gears"></i></a></li>
@@ -61,6 +62,8 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/services/yearService.js"></script>
+        <script src="scripts/directives/yearDropdown.js"></script>
         <!-- endbuild -->
 </body>
 </html>
