@@ -16,8 +16,9 @@ angular.module('f1App')
                 // The watcher will trigger loadData once it's available.
                 return;
             }
-            $http({method: 'get', url: $scope.baseurl + selectedYear }).success(function(data) {
-                $scope.season = data.MRData.RaceTable;
+            YearService.getSeasonData(selectedYear).then(function(seasonData) {
+                if (!seasonData) return;
+                $scope.season = seasonData;
                 angular.forEach($scope.season.Races, function(race, index) {
                     if(race.date !== undefined) {
                         let raceDate = new Date(race.date + 'T' + race.time);

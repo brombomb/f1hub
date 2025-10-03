@@ -5,6 +5,8 @@ angular.module('f1App').factory('YearService', ['$http', '$rootScope', function(
 
   service.availableSeasons = [];
   service.selectedYear = new Date().getFullYear(); // Default to current year
+  service.seasonDataCache = {}; // Cache for season race data
+  service.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
   service.fetchSeasons = function() {
     $http.get('https://api.jolpi.ca/ergast/f1/seasons.json?limit=100')
@@ -35,8 +37,56 @@ angular.module('f1App').factory('YearService', ['$http', '$rootScope', function(
   };
 
   service.setSelectedYear = function(year) {
+    var oldYear = service.selectedYear;
     service.selectedYear = year;
-    $rootScope.$broadcast('selectedYearChanged', year);
+    if (oldYear !== year) {
+      $rootScope.$broadcast('selectedYearChanged', year);
+    }
+  };
+
+  // Get season data with caching
+  service.getSeasonData = function(year) {
+    year = year || service.selectedYear;
+
+    if (service.seasonDataCache[year]) {
+      return Promise.resolve(service.seasonDataCache[year]);
+    }
+
+    return $http.get(service.baseurl + year)
+      .then(function(response) {
+        service.seasonDataCache[year] = response.data.MRData.RaceTable;
+        return service.seasonDataCache[year];
+      })
+      .catch(function(error) {
+        console.error('Error fetching season data for', year, ':', error);
+        return null;
+      });
+  };
+
+  // Get race navigation data for a specific circuit
+  service.getRaceNavigation = function(circuitId, year) {
+    return service.getSeasonData(year).then(function(seasonData) {
+      if (!seasonData || !seasonData.Races) {
+        return { previousRace: null, nextRace: null };
+      }
+
+      var currentIndex = -1;
+      for (var i = 0; i < seasonData.Races.length; i++) {
+        if (seasonData.Races[i].Circuit.circuitId === circuitId) {
+          currentIndex = i;
+          break;
+        }
+      }
+
+      if (currentIndex === -1) {
+        return { previousRace: null, nextRace: null };
+      }
+
+      return {
+        previousRace: currentIndex > 0 ? seasonData.Races[currentIndex - 1] : null,
+        nextRace: currentIndex < seasonData.Races.length - 1 ? seasonData.Races[currentIndex + 1] : null
+      };
+    });
   };
 
   // Call fetchSeasons when the service is instantiated
