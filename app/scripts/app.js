@@ -11,6 +11,7 @@ angular
   .config(function ($routeProvider, $locationProvider) {
     // Fix for AngularJS 1.6+ URL encoding issues
     $locationProvider.hashPrefix('');
+    
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
