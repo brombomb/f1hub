@@ -5,7 +5,7 @@
     "browser-sync": "^3.0.4"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   },
   "scripts": {
     "start": "browser-sync app -w --port 9000"

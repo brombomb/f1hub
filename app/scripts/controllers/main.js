@@ -108,8 +108,8 @@ angular.module('f1App')
                 $scope.nextRace = navigation.nextRace;
             });
 
-            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/results/'}).success(function(data) {
-                $scope.results = data.MRData.RaceTable.Races[0];
+            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/results/'}).then(function(response) {
+                $scope.results = response.data.MRData.RaceTable.Races[0];
 
                 if (!$scope.results) return; // Guard if no results for that year/circuit
 
@@ -140,7 +140,8 @@ angular.module('f1App')
                 // which are populated by the primary API call above.
                 if ($scope.results.season && $scope.results.round) {
                     $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
-                      + '/driverStandings'}).success(function(driverStandingsData) {
+                      + '/driverStandings'}).then(function(response) {
+                        var driverStandingsData = response.data;
                         if (driverStandingsData.MRData.StandingsTable.StandingsLists && driverStandingsData.MRData.StandingsTable.StandingsLists.length > 0) {
                             $scope.driverStandings = driverStandingsData.MRData.StandingsTable.StandingsLists[0].DriverStandings;
                         } else {
@@ -149,7 +150,8 @@ angular.module('f1App')
                       });
 
                     $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
-                      + '/constructorStandings'}).success(function(constructorStandingsData) {
+                      + '/constructorStandings'}).then(function(response) {
+                        var constructorStandingsData = response.data;
                         if (constructorStandingsData.MRData.StandingsTable.StandingsLists && constructorStandingsData.MRData.StandingsTable.StandingsLists.length > 0) {
                             $scope.constructorStandings = constructorStandingsData.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
                         } else {
@@ -160,7 +162,7 @@ angular.module('f1App')
                     $scope.driverStandings = [];
                     $scope.constructorStandings = [];
                 }
-            }).error(function() {
+            }).catch(function() {
                 // Handle error for the main results call, e.g., clear data
                 $scope.results = null;
                 $scope.driverStandings = [];
@@ -219,7 +221,8 @@ angular.module('f1App')
                 $scope.nextRace = navigation.nextRace;
             });
 
-            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying'}).success(function(data) {
+            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying'}).then(function(response) {
+                var data = response.data;
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.race = data.MRData.RaceTable.Races[0];
                     $scope.quali = data.MRData.RaceTable.Races[0].QualifyingResults;
@@ -234,7 +237,7 @@ angular.module('f1App')
                     $scope.race = null;
                     $scope.quali = [];
                 }
-            }).error(function() {
+            }).catch(function() {
                 $scope.race = null;
                 $scope.quali = [];
             });
@@ -291,7 +294,8 @@ angular.module('f1App')
                 $scope.nextRace = navigation.nextRace;
             });
 
-            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint'}).success(function(data) {
+            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint'}).then(function(response) {
+                var data = response.data;
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.results = data.MRData.RaceTable.Races[0];
                     if (!$scope.results.SprintResults) { // Ensure SprintResults exists
@@ -322,7 +326,7 @@ angular.module('f1App')
                 } else {
                     $scope.results = { SprintResults: [] }; // Ensure results.SprintResults is an empty array
                 }
-            }).error(function() {
+            }).catch(function() {
                 $scope.results = { SprintResults: [] }; // Ensure results.SprintResults is an empty array on error
             });
         };
@@ -381,13 +385,14 @@ angular.module('f1App')
                 url = $scope.baseurl + yearToUse + roundSegment + '/driverStandings';
             }
 
-            $http({method: 'get', url: url}).success(function(data) {
+            $http({method: 'get', url: url}).then(function(response) {
+                var data = response.data;
                 if (data.MRData.StandingsTable.StandingsLists && data.MRData.StandingsTable.StandingsLists.length > 0) {
                     $scope.standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
                 } else {
                     $scope.standings = []; // Handle cases where no standings are returned
                 }
-            }).error(function() {
+            }).catch(function() {
                 $scope.standings = []; // Clear on error
             });
         };
@@ -444,13 +449,14 @@ angular.module('f1App')
                 url = $scope.baseurl + yearToUse + roundSegment + '/constructorStandings';
             }
 
-            $http({method: 'get', url: url}).success(function(data) {
+            $http({method: 'get', url: url}).then(function(response) {
+                var data = response.data;
                 if (data.MRData.StandingsTable.StandingsLists && data.MRData.StandingsTable.StandingsLists.length > 0) {
                     $scope.standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
                 } else {
                     $scope.standings = []; // Handle cases where no standings are returned
                 }
-            }).error(function() {
+            }).catch(function() {
                 $scope.standings = []; // Clear on error
             });
         };
