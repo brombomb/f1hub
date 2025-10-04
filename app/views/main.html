@@ -1,75 +1,173 @@
 <div class="row marketing">
     <h1>Season {{season.season}}</h1>
-    <table class="table table-striped table-hover table-sm" ng-model="season">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Race Name <i class="fa fa-flag-o"></i></th>
-                <th>Qualifying <i class="fa fa-clock-o"></i></th>
-                <th>Sprint Race <i class="fa fa-sort-numeric-asc"></i></th>
-                <th>Race <i class="fa fa-trophy"></i></th>
-                <th>Standings <i class="fa fa-globe"></i></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="race in season.Races">
-                <td>{{race.round}}</td>
-                <td>
-                    {{race.raceName}}
-                    <br>
-                    <a ng-href="{{race.Circuit.url}}" class="circuit-link" target="blank">
-                        {{race.Circuit.circuitName}}
-                    </a>
-                </td>
-                <td>
-                    <div ng-if="race.Qualifying.results">
-                        <a ng-href="#/quali/{{race.Circuit.circuitId}}">{{race.Qualifying.dt | date: short}}</a>
-                        <a ng-href="#/quali/{{race.Circuit.circuitId}}" class="race-time">{{race.Qualifying.localeTime}}</a>
+
+
+    <!-- Desktop Table View -->
+    <div class="d-none d-md-block">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm" ng-model="season">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Race Name <i class="fa fa-flag-o"></i></th>
+                        <th>Qualifying <i class="fa fa-clock-o"></i></th>
+                        <th>Sprint Race <i class="fa fa-sort-numeric-asc"></i></th>
+                        <th>Race <i class="fa fa-trophy"></i></th>
+                        <th>Standings <i class="fa fa-globe"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="race in season.Races">
+                        <td>{{race.round}}</td>
+                        <td>
+                            {{race.raceName}}
+                            <br>
+                            <a ng-href="{{race.Circuit.url}}" class="circuit-link" target="blank">
+                                {{race.Circuit.circuitName}}
+                            </a>
+                        </td>
+                        <td>
+                            <div ng-if="race.Qualifying.results">
+                                <a ng-href="#/quali/{{race.Circuit.circuitId}}">{{race.Qualifying.dt | date: short}}</a>
+                                <div class="race-time">{{race.Qualifying.localeTime}}</div>
+                            </div>
+                            <div ng-if="!race.Qualifying.results">
+                                {{race.Qualifying.dt | date: short}}
+                                <div class="race-time">{{race.Qualifying.localeTime}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="race.Sprint.results">
+                                <a ng-href="#/sprint/{{race.Circuit.circuitId}}">{{race.Sprint.dt | date: short}}</a>
+                                <div class="race-time">{{race.Sprint.localeTime}}</div>
+                            </div>
+                            <div ng-if="!race.Sprint.results && race.Sprint.dt">
+                                {{race.Sprint.dt | date: short}}
+                                <div class="race-time">{{race.Sprint.localeTime}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="race.results">
+                                <a ng-href="#/results/{{race.Circuit.circuitId}}">{{race.dt | date: short}}</a>
+                                <div class="race-time">{{race.localeTime}}</div>
+                            </div>
+                            <div ng-if="!race.results">
+                                {{race.dt | date: short}}
+                                <div class="race-time">{{race.localeTime}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="race.results">
+                                <a ng-href="#/drivers/{{race.season}}/{{race.round}}"><i class="fa fa-car"></i></a>
+                                |
+                                <a ng-href="#/constructors/{{race.season}}/{{race.round}}"><i
+                                        class="fa fa-gears"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="d-md-none">
+        <div class="row" ng-repeat="race in season.Races">
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary">Round {{race.round}}</span>
+                        <div ng-if="race.results">
+                            <a ng-href="#/drivers/{{race.season}}/{{race.round}}"
+                                class="btn btn-sm btn-outline-light me-1">
+                                <i class="fa fa-car"></i>
+                            </a>
+                            <a ng-href="#/constructors/{{race.season}}/{{race.round}}"
+                                class="btn btn-sm btn-outline-light">
+                                <i class="fa fa-gears"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div ng-if="!race.Qualifying.results">
-                        {{race.Qualifying.dt | date: short}}
-                        <div class="race-time">{{race.Qualifying.localeTime}}</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{race.raceName}}</h6>
+                        <p class="card-text small text-muted">
+                            <a ng-href="{{race.Circuit.url}}" target="blank" class="text-decoration-none">
+                                {{race.Circuit.circuitName}}
+                            </a>
+                        </p>
+
+                        <div class="row text-center">
+                            <!-- Qualifying -->
+                            <div class="col-4">
+                                <div class="border-end">
+                                    <div class="small text-muted">
+                                        <i class="fa fa-clock-o"></i> Qualifying
+                                    </div>
+                                    <div ng-if="race.Qualifying.results">
+                                        <a ng-href="#/quali/{{race.Circuit.circuitId}}" class="text-decoration-none">
+                                            <div class="fw-bold">{{race.Qualifying.dt | date: 'MMM d'}}</div>
+                                            <div class="small">{{race.Qualifying.localeTime}}</div>
+                                        </a>
+                                    </div>
+                                    <div ng-if="!race.Qualifying.results">
+                                        <div class="fw-bold">{{race.Qualifying.dt | date: 'MMM d'}}</div>
+                                        <div class="small">{{race.Qualifying.localeTime}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sprint (if exists) -->
+                            <div class="col-4" ng-if="race.Sprint.dt">
+                                <div class="border-end">
+                                    <div class="small text-muted">
+                                        <i class="fa fa-sort-numeric-asc"></i> Sprint
+                                    </div>
+                                    <div ng-if="race.Sprint.results">
+                                        <a ng-href="#/sprint/{{race.Circuit.circuitId}}" class="text-decoration-none">
+                                            <div class="fw-bold">{{race.Sprint.dt | date: 'MMM d'}}</div>
+                                            <div class="small">{{race.Sprint.localeTime}}</div>
+                                        </a>
+                                    </div>
+                                    <div ng-if="!race.Sprint.results">
+                                        <div class="fw-bold">{{race.Sprint.dt | date: 'MMM d'}}</div>
+                                        <div class="small">{{race.Sprint.localeTime}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Race -->
+                            <div ng-class="race.Sprint.dt ? 'col-4' : 'col-8'">
+                                <div class="small text-muted">
+                                    <i class="fa fa-trophy"></i> Race
+                                </div>
+                                <div ng-if="race.results">
+                                    <a ng-href="#/results/{{race.Circuit.circuitId}}" class="text-decoration-none">
+                                        <div class="fw-bold">{{race.dt | date: 'MMM d'}}</div>
+                                        <div class="small">{{race.localeTime}}</div>
+                                    </a>
+                                </div>
+                                <div ng-if="!race.results">
+                                    <div class="fw-bold">{{race.dt | date: 'MMM d'}}</div>
+                                    <div class="small">{{race.localeTime}}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </td>
-                <td>
-                    <div ng-if="race.Sprint.results">
-                        <a ng-href="#/sprint/{{race.Circuit.circuitId}}">{{race.Sprint.dt | date: short}}</a>
-                        <a ng-href="#/sprint/{{race.Circuit.circuitId}}" class="race-time">{{race.Sprint.localeTime}}</a>
-                    </div>
-                    <div ng-if="!race.Sprint.results">
-                        {{race.Sprint.dt | date: short}}
-                        <div class="race-time">{{race.Sprint.localeTime}}</div>
-                    </div>
-                </td>
-                <td>
-                    <div ng-if="race.results">
-                        <a ng-href="#/results/{{race.Circuit.circuitId}}">{{race.dt | date: short}}</a>
-                        <a ng-href="#/results/{{race.Circuit.circuitId}}" class="race-time">{{race.localeTime}}</a>
-                    </div>
-                    <div ng-if="!race.results">
-                        {{race.dt | date: short}}
-                        <div class="race-time">{{race.localeTime}}</div>
-                    </div>
-                </td>
-                <td>
-                  <div ng-if="race.results">
-                    <a ng-href="#/drivers/{{race.season}}/{{race.round}}"><i class="fa fa-car"></i></a>
-					|
-					<a ng-href="#/constructors/{{race.season}}/{{race.round}}"><i class="fa fa-gears"></i></a>
-                  </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-21049175-3', 'brombomb.com');
-  ga('require', 'displayfeatures');
-  ga('send', 'pageview');
+    ga('create', 'UA-21049175-3', 'brombomb.com');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
 
 </script>

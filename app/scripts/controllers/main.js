@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f1App')
-    .controller('MainCtrl', ['$scope', '$http', 'YearService', 'LookupService', function ($scope, $http, YearService, LookupService) {
+    .controller('MainCtrl', ['$scope', '$http', '$timeout', 'YearService', 'LookupService', function ($scope, $http, $timeout, YearService, LookupService) {
         $scope.today = new Date();
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
@@ -13,13 +13,23 @@ angular.module('f1App')
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear) {
                 // YearService might not have loaded seasons yet.
-                // The watcher will trigger loadData once it's available.
+                // If no seasons are available, try to fetch them
+                if (YearService.getAvailableSeasons().length === 0) {
+                    YearService.fetchSeasons();
+                }
                 return;
             }
+
             YearService.getSeasonData(selectedYear).then(function(seasonData) {
-                if (!seasonData) return;
+                if (!seasonData) {
+                    return;
+                }
+                // Set the season data immediately
                 $scope.season = seasonData;
-                angular.forEach($scope.season.Races, function(race, index) {
+
+                // Process the race data
+                if ($scope.season && $scope.season.Races) {
+                    angular.forEach($scope.season.Races, function(race, index) {
                     if(race.date !== undefined) {
                         let raceDate = new Date(race.date + 'T' + race.time);
                         race.dt = raceDate;
@@ -51,24 +61,50 @@ angular.module('f1App')
                             race.Sprint.localeTime = sprintDate.toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
                         }
                     }
-                });
+                    });
+                }
+            }).catch(function(error) {
+                console.error('MainCtrl: Error loading season data', error);
+                $scope.season = null;
             });
         };
 
-        // Initial load
+        // Initialize controller
+        // Try initial load immediately
         $scope.loadData();
+
+        // Also try after a short delay in case services aren't ready
+        $timeout(function() {
+            if (!$scope.season) {
+                $scope.loadData();
+            }
+        }, 100);
 
         // Watch for year changes
         var yearWatcher = $scope.$watch(function() {
             return YearService.getSelectedYear();
         }, function(newYear, oldYear) {
-            if (newYear && newYear !== oldYear) {
+            if (newYear && (newYear !== oldYear || !$scope.season)) {
+                $scope.loadData();
+            }
+        });
+
+        // Also listen for seasons updated event
+        var seasonsUpdatedListener = $scope.$on('seasonsUpdated', function() {
+            $scope.loadData();
+        });
+
+        // Listen for route changes (when returning to home)
+        var routeChangeListener = $scope.$on('$routeChangeSuccess', function(event, current, previous) {
+            if (current.$$route && current.$$route.controller === 'MainCtrl' && !$scope.season) {
                 $scope.loadData();
             }
         });
 
         $scope.$on('$destroy', function() {
             yearWatcher(); // Deregister the watcher
+            seasonsUpdatedListener(); // Deregister the event listener
+            routeChangeListener(); // Deregister the route change listener
         });
     }])
 
