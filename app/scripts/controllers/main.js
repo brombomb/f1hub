@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('f1App')
-    .controller('MainCtrl', ['$scope', '$http', 'YearService', 'LookupService', function ($scope, $http, YearService, LookupService) {
+    .controller('MainCtrl', ['$scope', '$http', '$timeout', 'YearService', 'LookupService', function ($scope, $http, $timeout, YearService, LookupService) {
         $scope.today = new Date();
         $scope.baseurl = 'https://api.jolpi.ca/ergast/f1/';
 
@@ -13,13 +13,23 @@ angular.module('f1App')
             var selectedYear = YearService.getSelectedYear();
             if (!selectedYear) {
                 // YearService might not have loaded seasons yet.
-                // The watcher will trigger loadData once it's available.
+                // If no seasons are available, try to fetch them
+                if (YearService.getAvailableSeasons().length === 0) {
+                    YearService.fetchSeasons();
+                }
                 return;
             }
+
             YearService.getSeasonData(selectedYear).then(function(seasonData) {
-                if (!seasonData) return;
+                if (!seasonData) {
+                    return;
+                }
+                // Set the season data immediately
                 $scope.season = seasonData;
-                angular.forEach($scope.season.Races, function(race, index) {
+
+                // Process the race data
+                if ($scope.season && $scope.season.Races) {
+                    angular.forEach($scope.season.Races, function(race, index) {
                     if(race.date !== undefined) {
                         let raceDate = new Date(race.date + 'T' + race.time);
                         race.dt = raceDate;
@@ -51,24 +61,50 @@ angular.module('f1App')
                             race.Sprint.localeTime = sprintDate.toLocaleTimeString([], {timeZoneName: 'short', hour: 'numeric', minute:'2-digit'});
                         }
                     }
-                });
+                    });
+                }
+            }).catch(function(error) {
+                console.error('MainCtrl: Error loading season data', error);
+                $scope.season = null;
             });
         };
 
-        // Initial load
+        // Initialize controller
+        // Try initial load immediately
         $scope.loadData();
+
+        // Also try after a short delay in case services aren't ready
+        $timeout(function() {
+            if (!$scope.season) {
+                $scope.loadData();
+            }
+        }, 100);
 
         // Watch for year changes
         var yearWatcher = $scope.$watch(function() {
             return YearService.getSelectedYear();
         }, function(newYear, oldYear) {
-            if (newYear && newYear !== oldYear) {
+            if (newYear && (newYear !== oldYear || !$scope.season)) {
+                $scope.loadData();
+            }
+        });
+
+        // Also listen for seasons updated event
+        var seasonsUpdatedListener = $scope.$on('seasonsUpdated', function() {
+            $scope.loadData();
+        });
+
+        // Listen for route changes (when returning to home)
+        var routeChangeListener = $scope.$on('$routeChangeSuccess', function(event, current, previous) {
+            if (current.$$route && current.$$route.controller === 'MainCtrl' && !$scope.season) {
                 $scope.loadData();
             }
         });
 
         $scope.$on('$destroy', function() {
             yearWatcher(); // Deregister the watcher
+            seasonsUpdatedListener(); // Deregister the event listener
+            routeChangeListener(); // Deregister the route change listener
         });
     }])
 
@@ -140,7 +176,7 @@ angular.module('f1App')
                 // which are populated by the primary API call above.
                 if ($scope.results.season && $scope.results.round) {
                     $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
-                      + '/driverStandings'}).then(function(response) {
+                      + '/driverStandings/'}).then(function(response) {
                         var driverStandingsData = response.data;
                         if (driverStandingsData.MRData.StandingsTable.StandingsLists && driverStandingsData.MRData.StandingsTable.StandingsLists.length > 0) {
                             $scope.driverStandings = driverStandingsData.MRData.StandingsTable.StandingsLists[0].DriverStandings;
@@ -150,7 +186,7 @@ angular.module('f1App')
                       });
 
                     $http({method: 'get', url: $scope.baseurl + $scope.results.season + "/" + $scope.results.round
-                      + '/constructorStandings'}).then(function(response) {
+                      + '/constructorStandings/'}).then(function(response) {
                         var constructorStandingsData = response.data;
                         if (constructorStandingsData.MRData.StandingsTable.StandingsLists && constructorStandingsData.MRData.StandingsTable.StandingsLists.length > 0) {
                             $scope.constructorStandings = constructorStandingsData.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
@@ -221,7 +257,7 @@ angular.module('f1App')
                 $scope.nextRace = navigation.nextRace;
             });
 
-            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying'}).then(function(response) {
+            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/qualifying/'}).then(function(response) {
                 var data = response.data;
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.race = data.MRData.RaceTable.Races[0];
@@ -294,7 +330,7 @@ angular.module('f1App')
                 $scope.nextRace = navigation.nextRace;
             });
 
-            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint'}).then(function(response) {
+            $http({method: 'get', url: $scope.baseurl + selectedYear + '/circuits/' + $routeParams.circuitId + '/sprint/'}).then(function(response) {
                 var data = response.data;
                 if (data.MRData.RaceTable.Races && data.MRData.RaceTable.Races.length > 0) {
                     $scope.results = data.MRData.RaceTable.Races[0];
@@ -375,14 +411,14 @@ angular.module('f1App')
             if ($routeParams.season) { // If a specific season is in URL, use it with optional round
                 yearToUse = $routeParams.season; // Override YearService if season is in route
                 roundSegment = $routeParams.round ? '/' + $routeParams.round : '';
-                url = $scope.baseurl + yearToUse + roundSegment + '/driverStandings';
+                url = $scope.baseurl + yearToUse + roundSegment + '/driverStandings/';
             } else { // No specific season in URL, use YearService selected year (round is optional)
                 // For end-of-season standings, roundSegment will be empty.
                 // For standings after a particular race of YearService.selectedYear, roundSegment will be populated (if $routeParams.round is in URL)
                 // This case seems unlikely based on typical app flow (usually round implies season in URL)
                 // But to be safe, we use yearToUse (which is YearService.getSelectedYear here)
                 roundSegment = $routeParams.round ? '/' + $routeParams.round : '';
-                url = $scope.baseurl + yearToUse + roundSegment + '/driverStandings';
+                url = $scope.baseurl + yearToUse + roundSegment + '/driverStandings/';
             }
 
             $http({method: 'get', url: url}).then(function(response) {
@@ -443,10 +479,10 @@ angular.module('f1App')
             if ($routeParams.season) { // If a specific season is in URL, use it with optional round
                 yearToUse = $routeParams.season; // Override YearService if season is in route
                 roundSegment = $routeParams.round ? '/' + $routeParams.round : '';
-                url = $scope.baseurl + yearToUse + roundSegment + '/constructorStandings';
+                url = $scope.baseurl + yearToUse + roundSegment + '/constructorStandings/';
             } else { // No specific season in URL, use YearService selected year
                 roundSegment = $routeParams.round ? '/' + $routeParams.round : '';
-                url = $scope.baseurl + yearToUse + roundSegment + '/constructorStandings';
+                url = $scope.baseurl + yearToUse + roundSegment + '/constructorStandings/';
             }
 
             $http({method: 'get', url: url}).then(function(response) {

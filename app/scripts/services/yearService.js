@@ -52,7 +52,7 @@ angular.module('f1App').factory('YearService', ['$http', '$rootScope', function(
       return Promise.resolve(service.seasonDataCache[year]);
     }
 
-    return $http.get(service.baseurl + year)
+    return $http.get(service.baseurl + year + '/')
       .then(function(response) {
         service.seasonDataCache[year] = response.data.MRData.RaceTable;
         return service.seasonDataCache[year];

@@ -161,3 +161,61 @@ a {
   color: #fff !important;
   text-decoration: none;
 }
+
+/* Mobile-friendly improvements */
+@media (max-width: 768px) {
+  .header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-pills {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav-pills .nav-item {
+    margin-bottom: 0.25rem;
+  }
+
+  .marketing h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .position-badge {
+    font-size: 0.9rem;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-body {
+    padding: 0.75rem !important;
+  }
+}
+
+/* Race card improvements */
+.race-card {
+  transition: all 0.2s ease;
+}
+
+.race-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Position badge styling */
+.position-badge {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive table improvements */
+.table-responsive {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
